@@ -4,6 +4,7 @@ import HeroSection from "./components/hero/HeroSection";
 import SoundSection from "./components/sections/SoundSection";
 import TechSection from "./components/sections/TechSection";
 import StudioSection from "./components/sections/StudioSection";
+import LifestyleSection from "./components/sections/LifestyleSection";
 import ReserveSection from "./components/sections/ReserveSection";
 import ScrollSnap from "./components/ScrollSnap";
 
@@ -29,6 +30,7 @@ export default function Home() {
         <SoundSection />
         <TechSection />
         <StudioSection />
+        <LifestyleSection />
         <ReserveSection />
       </ScrollSnap>
     </main>

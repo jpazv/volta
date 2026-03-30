@@ -31,7 +31,7 @@ const USE_CASES = [
 
 export default function StudioSection() {
   return (
-    <section style={{
+    <section id="studio" style={{
       position: "relative",
       width: "100%",
       height: "100vh",
@@ -67,7 +67,7 @@ export default function StudioSection() {
       </div>
 
       {/* 3-column use case cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
+      <div className="volta-studio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
         {USE_CASES.map((uc, i) => (
           <motion.div
             key={uc.tag}
@@ -127,6 +127,12 @@ export default function StudioSection() {
         ))}
       </div>
 
+      <style>{`
+        @media (max-width: 639px) {
+          #studio { padding: 80px 5% 100px !important; height: auto !important; min-height: 100vh; }
+          .volta-studio-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }

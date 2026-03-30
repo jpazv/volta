@@ -19,7 +19,7 @@ const SPECS = [
 
 export default function TechSection() {
   return (
-    <section style={{
+    <section id="tech" style={{
       position: "relative",
       width: "100%",
       height: "100vh",
@@ -38,7 +38,7 @@ export default function TechSection() {
       }} />
 
       {/* Left — headline + spec list */}
-      <div style={{ flex: "0 0 44%", display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div className="volta-tech-left" style={{ flex: "0 0 44%", display: "flex", flexDirection: "column", gap: "24px" }}>
         <div>
           <motion.p
             custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
@@ -90,7 +90,7 @@ export default function TechSection() {
       </div>
 
       {/* Right — concentric ring diagram */}
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+      <div className="volta-tech-right" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
         <motion.div
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={vp}
           transition={{ duration: 1.2, delay: 0.3 }}
@@ -143,6 +143,17 @@ export default function TechSection() {
       <style>{`
         @keyframes volta-ring-cw  { to { transform: translate(-50%,-50%) rotate(360deg);  } }
         @keyframes volta-ring-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+        @media (max-width: 639px) {
+          #tech {
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: 100vh;
+            padding: 80px 5% 100px !important;
+            align-items: flex-start !important;
+          }
+          .volta-tech-left { flex: unset !important; width: 100% !important; }
+          .volta-tech-right { flex: unset !important; width: 100% !important; margin-top: 24px; }
+        }
       `}</style>
     </section>
   );

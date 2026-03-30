@@ -69,16 +69,24 @@ export default function ScrollSnap({ children }: { children: React.ReactNode }) 
       if (Math.abs(delta) > 40) scrollToSection(currentIdx.current + (delta > 0 ? 1 : -1));
     };
 
-    window.addEventListener("wheel",      onWheel,      { passive: false });
-    window.addEventListener("keydown",    onKey);
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend",   onTouchEnd,   { passive: true });
+    // Navbar scroll events
+    const onNavScroll = (e: Event) => {
+      const idx = (e as CustomEvent<{ idx: number }>).detail.idx;
+      scrollToSection(idx);
+    };
+
+    window.addEventListener("wheel",        onWheel,      { passive: false });
+    window.addEventListener("keydown",      onKey);
+    window.addEventListener("touchstart",   onTouchStart, { passive: true });
+    window.addEventListener("touchend",     onTouchEnd,   { passive: true });
+    window.addEventListener("volta-scroll", onNavScroll);
 
     return () => {
-      window.removeEventListener("wheel",      onWheel);
-      window.removeEventListener("keydown",    onKey);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend",   onTouchEnd);
+      window.removeEventListener("wheel",        onWheel);
+      window.removeEventListener("keydown",      onKey);
+      window.removeEventListener("touchstart",   onTouchStart);
+      window.removeEventListener("touchend",     onTouchEnd);
+      window.removeEventListener("volta-scroll", onNavScroll);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

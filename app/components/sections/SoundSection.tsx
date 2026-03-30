@@ -38,7 +38,7 @@ const CARDS = [
 
 export default function SoundSection() {
   return (
-    <section style={{
+    <section id="sound" style={{
       position: "relative",
       width: "100%",
       height: "100vh",
@@ -74,7 +74,7 @@ export default function SoundSection() {
       </div>
 
       {/* Cards grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+      <div className="volta-sound-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
         {CARDS.map((c, i) => (
           <motion.div
             key={c.label}
@@ -149,6 +149,12 @@ export default function SoundSection() {
         </div>
       </motion.div>
 
+      <style>{`
+        @media (max-width: 639px) {
+          #sound { padding: 80px 5% 100px !important; height: auto !important; min-height: 100vh; }
+          .volta-sound-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </section>
   );
 }

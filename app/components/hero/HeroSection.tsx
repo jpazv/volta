@@ -40,8 +40,9 @@ export default function HeroSection() {
         pointerEvents: "none",
       }} />
 
-      {/* Person cutout — right side, bottom anchored */}
+      {/* Person cutout — right side, bottom anchored — hidden on mobile */}
       <motion.div
+        className="volta-hero-person"
         initial={{ opacity: 0, x: 32 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
@@ -65,14 +66,12 @@ export default function HeroSection() {
             objectPosition: "bottom center",
           }}
         />
-        {/* Blend left edge into background */}
         <div style={{
           position: "absolute",
           inset: 0,
           background: "linear-gradient(90deg, var(--bg) 0%, rgba(0,0,0,0) 28%)",
           pointerEvents: "none",
         }} />
-        {/* Blend bottom edge */}
         <div style={{
           position: "absolute",
           inset: 0,
@@ -83,6 +82,7 @@ export default function HeroSection() {
 
       {/* Left — frosted glass card */}
       <motion.div
+        className="volta-hero-card"
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
@@ -227,6 +227,20 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
+      <style>{`
+        @media (max-width: 639px) {
+          .volta-hero-person { display: none !important; }
+          .volta-hero-card {
+            margin-left: 0 !important;
+            margin: 0 5% !important;
+            align-items: center !important;
+            text-align: center !important;
+            min-width: unset !important;
+            max-width: unset !important;
+            width: 90% !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

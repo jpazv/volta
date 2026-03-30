@@ -23,6 +23,7 @@ const staggerContainer: Variants = {
 export default function ReserveSection() {
   return (
     <section
+      id="reserve"
       style={{
         position: "relative",
         width: "100%",

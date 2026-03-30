@@ -165,7 +165,6 @@ export default function BeamsCanvas() {
     <div
       style={{ position: "relative", width: "100%", height: "100%", cursor: "pointer" }}
       onClick={handleClick}
-      title={audioActive ? "Stop audio" : "Tap to activate audio"}
     >
       <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
 
@@ -269,70 +268,85 @@ function drawCircle(
   fft: Uint8Array<ArrayBuffer> | undefined,
   audioActive: boolean,
 ) {
-  const baseR  = 48;
-  const POINTS = 96;
-  const idle   = 0.4 + 0.6 * Math.sin(t * 1.8);
-
-  for (let i = 0; i < POINTS; i++) {
-    const angle = (i / POINTS) * TWO_PI;
-    let r: number;
-    if (fft && audioActive) {
-      const fi = Math.floor((i / POINTS) * fft.length * 0.8);
-      r = baseR + (fft[fi] / 255) * 50 * sb + (fft[Math.floor(fi * 0.5) % fft.length] / 255) * 18 * sm;
-    } else {
-      r = baseR + Math.sin(angle * 3 + t * 2) * 7 * idle + Math.sin(angle * 5 + t * 1.3) * 3 * idle;
-    }
-    circPts[i * 2]     = cx + Math.cos(angle) * r;
-    circPts[i * 2 + 1] = cy + Math.sin(angle) * r;
-  }
-
-  // Expanding rings
-  for (let r = 0; r < 3; r++) {
-    const phase = ((t * 0.55) + r * (1 / 3)) % 1;
-    const ringR = baseR + 8 + phase * 72;
-    const alpha = (1 - phase) * (audioActive ? 0.45 + se * 0.3 : 0.18);
-    if (alpha < 0.01) continue;
-    ctx.globalAlpha  = alpha;
-    ctx.strokeStyle  = "rgb(140,148,162)";
-    ctx.lineWidth    = 1.2;
-    ctx.beginPath(); ctx.arc(cx, cy, ringR, 0, TWO_PI); ctx.stroke();
-  }
-
-  // Outer bloom
-  ctx.globalAlpha  = 0.42 + se * 0.25;
-  ctx.strokeStyle  = `rgb(${Math.round(110 + se * 30)},${Math.round(118 + se * 30)},${Math.round(132 + se * 20)})`;
-  ctx.lineWidth    = 24 + se * 20;
-  ctx.beginPath();
-  ctx.moveTo(circPts[0], circPts[1]);
-  for (let i = 1; i < POINTS; i++) ctx.lineTo(circPts[i * 2], circPts[i * 2 + 1]);
-  ctx.closePath(); ctx.stroke();
-
-  // Crisp edge
-  ctx.globalAlpha  = 0.88;
-  ctx.strokeStyle  = `rgb(${Math.round(175 + se * 30)},${Math.round(183 + se * 20)},${Math.round(195 + se * 15)})`;
-  ctx.lineWidth    = 1.2 + se * 2;
-  ctx.stroke();
-
+  const baseR = 52;
+  const STEPS = 80; // points along the waveform line
   ctx.globalCompositeOperation = "source-over";
 
-  // Inner fill
-  ctx.globalAlpha = 1;
-  const ig = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR - 3);
-  ig.addColorStop(0, "rgba(18,0,4,0.97)");
-  ig.addColorStop(1, "rgba(4,0,2,1)");
-  ctx.fillStyle = ig;
-  ctx.beginPath(); ctx.arc(cx, cy, baseR - 3, 0, TWO_PI); ctx.fill();
+  // ── Grey outer ring ──────────────────────────────────────────────
+  ctx.globalAlpha = 0.35;
+  ctx.strokeStyle = "rgb(90,94,104)";
+  ctx.lineWidth   = 1.2;
+  ctx.beginPath(); ctx.arc(cx, cy, baseR, 0, TWO_PI); ctx.stroke();
 
-  // Text
-  ctx.globalAlpha      = 0.88 + se * 0.12;
-  ctx.textAlign        = "center";
-  ctx.textBaseline     = "middle";
-  ctx.fillStyle        = "#ffffff";
-  ctx.font             = `bold 16px var(--font-bebas,'Bebas Neue',sans-serif)`;
-  ctx.fillText("VØLTA", cx, cy - 7);
-  ctx.fillStyle        = "rgba(160,168,182,0.8)";
-  ctx.font             = `300 7px var(--font-dm,'DM Sans',sans-serif)`;
-  ctx.fillText("V1 PRO SERIES", cx, cy + 7);
+  // ── Dark inner fill ──────────────────────────────────────────────
+  ctx.globalAlpha = 1;
+  ctx.fillStyle   = "rgba(4,0,8,0.96)";
+  ctx.beginPath(); ctx.arc(cx, cy, baseR - 1, 0, TWO_PI); ctx.fill();
+
+  // ── Neon waveform line clipped inside circle ─────────────────────
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx, cy, baseR - 2, 0, TWO_PI); ctx.clip();
+
+  // Build wave points
+  const pts: [number, number][] = [];
+  const amp = audioActive
+    ? 10 + sb * 28 + sm * 12
+    : 5 + 4 * Math.sin(t * 1.4);
+
+  for (let i = 0; i <= STEPS; i++) {
+    const norm = i / STEPS;                        // 0 → 1
+    const x    = cx - baseR + norm * baseR * 2;
+
+    let y: number;
+    if (fft && audioActive) {
+      const fi = Math.floor(norm * fft.length * 0.65);
+      const raw = (fft[fi] / 255) * 2 - 1;         // -1 → +1
+      y = cy + raw * amp;
+    } else {
+      y = cy
+        + Math.sin(norm * Math.PI * 5 + t * 3.2) * amp
+        + Math.sin(norm * Math.PI * 3 - t * 1.8) * amp * 0.4;
+    }
+    pts.push([x, y]);
+  }
+
+  // Pass 1 — wide neon red glow
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha  = 0.35 + se * 0.2;
+  ctx.strokeStyle  = "#e8001e";
+  ctx.lineWidth    = 6 + sb * 8;
+  ctx.beginPath();
+  pts.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+  ctx.stroke();
+
+  // Pass 2 — mid red
+  ctx.globalAlpha  = 0.65 + se * 0.2;
+  ctx.lineWidth    = 2;
+  ctx.beginPath();
+  pts.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+  ctx.stroke();
+
+  // Pass 3 — white core
+  ctx.globalAlpha  = 0.92;
+  ctx.strokeStyle  = "rgba(255,220,220,0.95)";
+  ctx.lineWidth    = 0.8;
+  ctx.beginPath();
+  pts.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+  ctx.stroke();
+
+  ctx.restore();
+
+  // ── Text above / below line ──────────────────────────────────────
+  ctx.globalCompositeOperation = "source-over";
+  ctx.globalAlpha  = 0.82;
+  ctx.textAlign    = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle    = "rgba(255,255,255,0.88)";
+  ctx.font         = `bold 15px var(--font-bebas,'Bebas Neue',sans-serif)`;
+  ctx.fillText("VØLTA", cx, cy - 18);
+  ctx.fillStyle    = "rgba(140,148,162,0.7)";
+  ctx.font         = `300 6.5px var(--font-dm,'DM Sans',sans-serif)`;
+  ctx.fillText("V1 PRO SERIES", cx, cy + 20);
 
   ctx.globalCompositeOperation = "lighter";
 }

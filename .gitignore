@@ -40,7 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Large media files
-public/*.mp3
+# Large media files — mp4 too heavy for Vercel (>50MB)
 public/*.mp4
 public/*.webp
+# mp3 allowed (demo.mp3 = 3.9MB, safe for Vercel)
+public/AudioCleaner_*.mp3

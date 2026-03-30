@@ -47,7 +47,7 @@ export default function SoundSection() {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      padding: "0 6%",
+      padding: "72px 6% 110px",
     }}>
 
       {/* Ambient glow */}
@@ -57,16 +57,16 @@ export default function SoundSection() {
       }} />
 
       {/* Header */}
-      <div style={{ marginBottom: "48px" }}>
+      <div style={{ marginBottom: "24px" }}>
         <motion.p
           custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-          style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "12px" }}
+          style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "8px" }}
         >
           Sound · 01
         </motion.p>
         <motion.h2
           custom={1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-          style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(56px, 7vw, 92px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
+          style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(42px, 5.5vw, 72px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
         >
           FEEL EVERY<br />
           <span style={{ color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.45)" }}>FREQUENCY</span>
@@ -74,7 +74,7 @@ export default function SoundSection() {
       </div>
 
       {/* Cards grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
         {CARDS.map((c, i) => (
           <motion.div
             key={c.label}
@@ -84,20 +84,19 @@ export default function SoundSection() {
               WebkitBackdropFilter: "blur(28px)",
               background: "rgba(255,255,255,0.04)",
               border: "1px solid rgba(255,255,255,0.09)",
-              borderRadius: "20px",
-              padding: "28px 24px",
+              borderRadius: "18px",
+              padding: "20px 18px",
               display: "flex",
               flexDirection: "column",
-              gap: "12px",
+              gap: "10px",
               boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 40px rgba(0,0,0,0.4)",
               cursor: "default",
-              transition: "border-color 0.25s, box-shadow 0.25s",
             }}
             whileHover={{ scale: 1.015 }}
             transition={{ duration: 0.2 }}
           >
             {/* Value */}
-            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "44px", lineHeight: 1, letterSpacing: "1px", color: "#ffffff" }}>
+            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "36px", lineHeight: 1, letterSpacing: "1px", color: "#ffffff" }}>
               {c.value}
             </div>
 
@@ -118,7 +117,7 @@ export default function SoundSection() {
             </div>
 
             {/* Sub */}
-            <div style={{ fontFamily: "var(--font-dm)", fontSize: "11px", lineHeight: 1.75, color: "rgba(255,255,255,0.28)", fontWeight: 300 }}>
+            <div style={{ fontFamily: "var(--font-dm)", fontSize: "10px", lineHeight: 1.65, color: "rgba(255,255,255,0.28)", fontWeight: 300 }}>
               {c.sub}
             </div>
           </motion.div>
@@ -129,20 +128,20 @@ export default function SoundSection() {
       <motion.div
         custom={6} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
         style={{
-          marginTop: "20px",
+          marginTop: "14px",
           backdropFilter: "blur(28px)",
           WebkitBackdropFilter: "blur(28px)",
           background: "rgba(255,255,255,0.03)",
           border: "1px solid rgba(255,255,255,0.07)",
-          borderRadius: "16px",
-          padding: "20px 32px",
+          borderRadius: "14px",
+          padding: "14px 28px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: "24px",
         }}
       >
-        <div style={{ fontFamily: "var(--font-bebas)", fontSize: "20px", letterSpacing: "3px", color: "rgba(255,255,255,0.5)" }}>
+        <div style={{ fontFamily: "var(--font-bebas)", fontSize: "18px", letterSpacing: "3px", color: "rgba(255,255,255,0.5)" }}>
           "Every driver tuned by ear. Every curve measured in silence."
         </div>
         <div style={{ fontFamily: "var(--font-dm)", fontSize: "9px", letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", whiteSpace: "nowrap" }}>

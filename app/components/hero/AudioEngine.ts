@@ -27,7 +27,7 @@ export class AudioEngine {
     this.dataArray = new Uint8Array(this.analyser.frequencyBinCount) as Uint8Array<ArrayBuffer>;
 
     // Audio element — place stereo-love.mp3 in /public
-    this.mediaEl = new Audio("/AudioCleaner_Download_Edward Maya & Vika Jigulina - Stereo Love (Official Music Video).mp3");
+    this.mediaEl = new Audio("/demo.mp3");
     this.mediaEl.loop = true;
     this.mediaEl.crossOrigin = "anonymous";
 

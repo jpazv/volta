@@ -40,7 +40,7 @@ export default function StudioSection() {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      padding: "0 6%",
+      padding: "72px 6% 110px",
     }}>
 
       {/* Ambient */}
@@ -50,16 +50,16 @@ export default function StudioSection() {
       }} />
 
       {/* Header */}
-      <div style={{ marginBottom: "48px" }}>
+      <div style={{ marginBottom: "28px" }}>
         <motion.p
           custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-          style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "12px" }}
+          style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "8px" }}
         >
           Studio · 03
         </motion.p>
         <motion.h2
           custom={1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-          style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(56px, 7vw, 92px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
+          style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(42px, 5.5vw, 72px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
         >
           BUILT FOR THE<br />
           <span style={{ color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.45)" }}>PROFESSIONAL</span>
@@ -67,7 +67,7 @@ export default function StudioSection() {
       </div>
 
       {/* 3-column use case cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
         {USE_CASES.map((uc, i) => (
           <motion.div
             key={uc.tag}
@@ -77,11 +77,11 @@ export default function StudioSection() {
               WebkitBackdropFilter: "blur(32px)",
               background: i === 1 ? "rgba(255,255,255,0.065)" : "rgba(255,255,255,0.035)",
               border: i === 1 ? "1px solid rgba(255,255,255,0.14)" : "1px solid rgba(255,255,255,0.07)",
-              borderRadius: "24px",
-              padding: "36px 28px",
+              borderRadius: "22px",
+              padding: "28px 24px",
               display: "flex",
               flexDirection: "column",
-              gap: "20px",
+              gap: "16px",
               boxShadow: i === 1
                 ? "inset 0 1px 0 rgba(255,255,255,0.1), 0 32px 56px rgba(0,0,0,0.45)"
                 : "inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.3)",
@@ -100,14 +100,14 @@ export default function StudioSection() {
 
             {/* Headline */}
             <div style={{
-              fontFamily: "var(--font-bebas)", fontSize: "36px", lineHeight: 0.9,
+              fontFamily: "var(--font-bebas)", fontSize: "30px", lineHeight: 0.9,
               letterSpacing: "1.5px", color: "#ffffff", whiteSpace: "pre-line",
             }}>
               {uc.headline}
             </div>
 
             {/* Body */}
-            <div style={{ fontFamily: "var(--font-dm)", fontSize: "12px", lineHeight: 1.8, color: "rgba(255,255,255,0.32)", fontWeight: 300, flex: 1 }}>
+            <div style={{ fontFamily: "var(--font-dm)", fontSize: "11px", lineHeight: 1.7, color: "rgba(255,255,255,0.32)", fontWeight: 300, flex: 1 }}>
               {uc.body}
             </div>
 
@@ -118,7 +118,7 @@ export default function StudioSection() {
             <div style={{ display: "flex", gap: "24px" }}>
               {uc.stats.map(s => (
                 <div key={s.l}>
-                  <div style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "1px", color: "#fff", lineHeight: 1 }}>{s.v}</div>
+                  <div style={{ fontFamily: "var(--font-bebas)", fontSize: "20px", letterSpacing: "1px", color: "#fff", lineHeight: 1 }}>{s.v}</div>
                   <div style={{ fontFamily: "var(--font-dm)", fontSize: "8px", letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.28)", marginTop: "4px" }}>{s.l}</div>
                 </div>
               ))}

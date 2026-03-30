@@ -21,7 +21,6 @@ export default function HeroSection() {
       background: "var(--bg)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
     }}>
 
       {/* Equalizer canvas — full background */}
@@ -29,7 +28,60 @@ export default function HeroSection() {
         <BeamsCanvas />
       </div>
 
-      {/* Center — frosted glass card */}
+      {/* Ambient red glow behind person */}
+      <div style={{
+        position: "absolute",
+        right: "10%",
+        bottom: "0",
+        width: "560px",
+        height: "560px",
+        background: "radial-gradient(ellipse at center bottom, rgba(180,10,22,0.13) 0%, transparent 65%)",
+        zIndex: 2,
+        pointerEvents: "none",
+      }} />
+
+      {/* Person cutout — right side, bottom anchored */}
+      <motion.div
+        initial={{ opacity: 0, x: 32 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+        style={{
+          position: "absolute",
+          right: 0,
+          bottom: 0,
+          zIndex: 3,
+          pointerEvents: "none",
+          userSelect: "none",
+        }}
+      >
+        <img
+          src="/voltamkt1_nobg.png"
+          alt="Person wearing VØLTA V1 Pro headphones"
+          style={{
+            height: "92vh",
+            width: "auto",
+            display: "block",
+            objectFit: "contain",
+            objectPosition: "bottom center",
+          }}
+        />
+        {/* Blend left edge into background */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(90deg, var(--bg) 0%, rgba(0,0,0,0) 28%)",
+          pointerEvents: "none",
+        }} />
+        {/* Blend bottom edge */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(0deg, var(--bg) 0%, rgba(0,0,0,0) 18%)",
+          pointerEvents: "none",
+        }} />
+      </motion.div>
+
+      {/* Left — frosted glass card */}
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
@@ -37,19 +89,21 @@ export default function HeroSection() {
         style={{
           position: "relative",
           zIndex: 4,
+          marginLeft: "8%",
           backdropFilter: "blur(36px)",
           WebkitBackdropFilter: "blur(36px)",
           background: "rgba(255,255,255,0.045)",
           border: "1px solid rgba(255,255,255,0.1)",
           borderRadius: "28px",
-          padding: "32px 44px 36px",
+          padding: "20px 36px 22px",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
+          alignItems: "flex-start",
+          textAlign: "left",
           boxShadow: "0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07)",
           pointerEvents: "none",
-          minWidth: "340px",
+          minWidth: "300px",
+          maxWidth: "380px",
         }}
       >
         {/* Eyebrow */}
@@ -64,20 +118,20 @@ export default function HeroSection() {
             letterSpacing: "5px",
             textTransform: "uppercase",
             color: "var(--red-core)",
-            marginBottom: "20px",
+            marginBottom: "14px",
           }}
         >
           V1 Pro Series · 2025
         </motion.p>
 
         {/* Headline */}
-        <div style={{ marginBottom: "24px", lineHeight: 0.88 }}>
+        <div style={{ marginBottom: "16px", lineHeight: 0.88 }}>
           {(["SIGNAL", "OVER", "NOISE"] as const).map((word, i) => (
             <motion.div key={word} custom={i + 1} variants={fadeUp} initial="hidden" animate="visible">
               <span style={{
                 display: "block",
                 fontFamily: "var(--font-bebas), 'Bebas Neue', sans-serif",
-                fontSize: "clamp(64px, 8vw, 106px)",
+                fontSize: "clamp(44px, 5.5vw, 76px)",
                 letterSpacing: "3px",
                 color: word === "OVER" ? "transparent" : "rgba(255,255,255,0.92)",
                 WebkitTextStroke: word === "OVER" ? "1.5px rgba(255,255,255,0.55)" : undefined,
@@ -89,7 +143,7 @@ export default function HeroSection() {
         </div>
 
         {/* Divider */}
-        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.12)", marginBottom: "20px" }} />
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.12)", marginBottom: "14px" }} />
 
         {/* Tagline */}
         <motion.p
@@ -100,9 +154,9 @@ export default function HeroSection() {
           style={{
             fontFamily: "var(--font-dm), 'DM Sans', sans-serif",
             fontSize: "11px",
-            lineHeight: 1.9,
+            lineHeight: 1.7,
             color: "rgba(255,255,255,0.32)",
-            marginBottom: "28px",
+            marginBottom: "18px",
             maxWidth: "240px",
           }}
         >
@@ -171,43 +225,6 @@ export default function HeroSection() {
             Tech specs →
           </a>
         </motion.div>
-      </motion.div>
-
-      {/* Right — floating brand mark over bars */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.8 }}
-        style={{
-          position: "absolute",
-          right: "6%",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 4,
-          pointerEvents: "none",
-          textAlign: "right",
-        }}
-      >
-        <div style={{
-          fontFamily: "var(--font-bebas), 'Bebas Neue', sans-serif",
-          fontSize: "clamp(48px, 6vw, 80px)",
-          letterSpacing: "8px",
-          color: "rgba(255,255,255,0.06)",
-          lineHeight: 1,
-          userSelect: "none",
-        }}>
-          VØLTA
-        </div>
-        <div style={{
-          fontFamily: "var(--font-dm), 'DM Sans', sans-serif",
-          fontSize: "9px",
-          letterSpacing: "4px",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.08)",
-          marginTop: "6px",
-        }}>
-          Reference Series
-        </div>
       </motion.div>
 
     </section>

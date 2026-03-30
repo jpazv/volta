@@ -28,7 +28,7 @@ export default function TechSection() {
       display: "flex",
       alignItems: "center",
       gap: "5%",
-      padding: "0 6%",
+      padding: "72px 6% 110px",
     }}>
 
       {/* Ambient */}
@@ -38,17 +38,17 @@ export default function TechSection() {
       }} />
 
       {/* Left — headline + spec list */}
-      <div style={{ flex: "0 0 44%", display: "flex", flexDirection: "column", gap: "40px" }}>
+      <div style={{ flex: "0 0 44%", display: "flex", flexDirection: "column", gap: "24px" }}>
         <div>
           <motion.p
             custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-            style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "12px" }}
+            style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "8px" }}
           >
             Tech · 02
           </motion.p>
           <motion.h2
             custom={1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
-            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(56px, 6.5vw, 88px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
+            style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(42px, 5.5vw, 72px)", lineHeight: 0.88, letterSpacing: "2px", color: "#fff" }}
           >
             ZERO<br />
             <span style={{ color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.45)" }}>COMPROMISE</span>
@@ -63,7 +63,7 @@ export default function TechSection() {
             WebkitBackdropFilter: "blur(28px)",
             background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "20px",
+            borderRadius: "18px",
             overflow: "hidden",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 48px rgba(0,0,0,0.4)",
           }}
@@ -75,12 +75,12 @@ export default function TechSection() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "15px 24px",
+                padding: "11px 20px",
                 borderBottom: i < SPECS.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "16px", flex: 1 }}>
-                <div style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "1px", color: "#fff", minWidth: "72px" }}>{s.value}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", flex: 1 }}>
+                <div style={{ fontFamily: "var(--font-bebas)", fontSize: "20px", letterSpacing: "1px", color: "#fff", minWidth: "64px" }}>{s.value}</div>
                 <div style={{ fontFamily: "var(--font-dm)", fontSize: "8px", letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.32)" }}>{s.label}</div>
               </div>
               <div style={{ fontFamily: "var(--font-dm)", fontSize: "10px", color: "rgba(255,255,255,0.18)", textAlign: "right" }}>{s.detail}</div>
@@ -94,9 +94,9 @@ export default function TechSection() {
         <motion.div
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={vp}
           transition={{ duration: 1.2, delay: 0.3 }}
-          style={{ position: "relative", width: "420px", height: "420px" }}
+          style={{ position: "relative", width: "360px", height: "360px" }}
         >
-          {[420, 340, 260, 190, 130, 80].map((size, i) => (
+          {[360, 292, 224, 164, 112, 70].map((size, i) => (
             <div key={size} style={{
               position: "absolute",
               top: "50%", left: "50%",
@@ -112,7 +112,7 @@ export default function TechSection() {
           <div style={{
             position: "absolute", top: "50%", left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "110px", height: "110px",
+            width: "94px", height: "94px",
             borderRadius: "50%",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
@@ -122,7 +122,7 @@ export default function TechSection() {
             alignItems: "center", justifyContent: "center",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.5)",
           }}>
-            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "28px", letterSpacing: "1px", color: "#fff", lineHeight: 1 }}>40MM</div>
+            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "24px", letterSpacing: "1px", color: "#fff", lineHeight: 1 }}>40MM</div>
             <div style={{ fontFamily: "var(--font-dm)", fontSize: "7px", letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginTop: "4px" }}>Driver</div>
           </div>
 

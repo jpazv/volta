@@ -42,13 +42,17 @@ export default function ScrollSnap({ children }: { children: React.ReactNode }) 
       rafRef.current = requestAnimationFrame(step);
     };
 
+    const isMobile = () => window.innerWidth < 640;
+
     const onWheel = (e: WheelEvent) => {
+      if (isMobile()) return;
       e.preventDefault();
       if (isAnimating.current) return;
       scrollToSection(currentIdx.current + (e.deltaY > 0 ? 1 : -1));
     };
 
     const onKey = (e: KeyboardEvent) => {
+      if (isMobile()) return;
       if (isAnimating.current) return;
       if (e.key === "ArrowDown" || e.key === "PageDown") {
         e.preventDefault();
@@ -60,15 +64,6 @@ export default function ScrollSnap({ children }: { children: React.ReactNode }) 
       }
     };
 
-    // Touch support
-    let touchStartY = 0;
-    const onTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
-    const onTouchEnd   = (e: TouchEvent) => {
-      if (isAnimating.current) return;
-      const delta = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(delta) > 40) scrollToSection(currentIdx.current + (delta > 0 ? 1 : -1));
-    };
-
     // Navbar scroll events
     const onNavScroll = (e: Event) => {
       const idx = (e as CustomEvent<{ idx: number }>).detail.idx;
@@ -77,15 +72,11 @@ export default function ScrollSnap({ children }: { children: React.ReactNode }) 
 
     window.addEventListener("wheel",        onWheel,      { passive: false });
     window.addEventListener("keydown",      onKey);
-    window.addEventListener("touchstart",   onTouchStart, { passive: true });
-    window.addEventListener("touchend",     onTouchEnd,   { passive: true });
     window.addEventListener("volta-scroll", onNavScroll);
 
     return () => {
       window.removeEventListener("wheel",        onWheel);
       window.removeEventListener("keydown",      onKey);
-      window.removeEventListener("touchstart",   onTouchStart);
-      window.removeEventListener("touchend",     onTouchEnd);
       window.removeEventListener("volta-scroll", onNavScroll);
       cancelAnimationFrame(rafRef.current);
     };

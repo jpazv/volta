@@ -56,8 +56,23 @@ export default function SoundSection() {
         background: "radial-gradient(ellipse 70% 50% at 80% 50%, rgba(232,0,30,0.04) 0%, transparent 70%)",
       }} />
 
+      {/* White headphones — background right */}
+      <div style={{
+        position: "absolute", right: "-4%", top: "50%",
+        transform: "translateY(-50%)",
+        width: "52%", pointerEvents: "none", zIndex: 0,
+        opacity: 0.13,
+      }}>
+        <img
+          src="/volta_white_nobg.png"
+          alt=""
+          aria-hidden="true"
+          style={{ width: "100%", height: "auto", display: "block", filter: "blur(1px)" }}
+        />
+      </div>
+
       {/* Header */}
-      <div style={{ marginBottom: "24px" }}>
+      <div style={{ marginBottom: "24px", position: "relative", zIndex: 1 }}>
         <motion.p
           custom={0} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
           style={{ fontFamily: "var(--font-dm)", fontSize: "10px", letterSpacing: "5px", textTransform: "uppercase", color: "var(--red-core)", marginBottom: "8px" }}
@@ -74,7 +89,7 @@ export default function SoundSection() {
       </div>
 
       {/* Cards grid */}
-      <div className="volta-sound-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+      <div className="volta-sound-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", position: "relative", zIndex: 1 }}>
         {CARDS.map((c, i) => (
           <motion.div
             key={c.label}
@@ -129,6 +144,7 @@ export default function SoundSection() {
         custom={6} variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
         style={{
           marginTop: "14px",
+          position: "relative", zIndex: 1,
           backdropFilter: "blur(28px)",
           WebkitBackdropFilter: "blur(28px)",
           background: "rgba(255,255,255,0.03)",

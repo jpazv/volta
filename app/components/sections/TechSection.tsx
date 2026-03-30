@@ -89,41 +89,60 @@ export default function TechSection() {
         </motion.div>
       </div>
 
-      {/* Right — white headphones person */}
-      <div className="volta-tech-right" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+      {/* Right — concentric ring diagram */}
+      <div className="volta-tech-right" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
         <motion.div
-          initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={vp}
-          transition={{ duration: 1.0, delay: 0.3, ease: "easeOut" }}
-          style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={vp}
+          transition={{ duration: 1.2, delay: 0.3 }}
+          style={{ position: "relative", width: "360px", height: "360px" }}
         >
-          <img
-            src="/volta_white_nobg.png"
-            alt="VØLTA V1 Pro — White Edition"
-            style={{
-              width: "100%",
-              maxWidth: "480px",
-              height: "auto",
-              objectFit: "contain",
-              display: "block",
-              filter: "brightness(0.92) contrast(1.05)",
-            }}
-          />
-          {/* Left fade to blend with specs */}
+          {[360, 292, 224, 164, 112, 70].map((size, i) => (
+            <div key={size} style={{
+              position: "absolute",
+              top: "50%", left: "50%",
+              width: size, height: size,
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              border: `1px solid rgba(255,255,255,${0.03 + i * 0.015})`,
+              animation: `volta-ring-${i % 2 === 0 ? "cw" : "ccw"} ${28 + i * 12}s linear infinite`,
+            }} />
+          ))}
+
+          {/* Center glass pill */}
           <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(90deg, #03010d 0%, transparent 30%)",
-            pointerEvents: "none",
-          }} />
-          {/* Subtle white glow behind headphones */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "radial-gradient(ellipse 60% 50% at 55% 40%, rgba(255,255,255,0.04) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
+            position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "94px", height: "94px",
+            borderRadius: "50%",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.5)",
+          }}>
+            <div style={{ fontFamily: "var(--font-bebas)", fontSize: "24px", letterSpacing: "1px", color: "#fff", lineHeight: 1 }}>40MM</div>
+            <div style={{ fontFamily: "var(--font-dm)", fontSize: "7px", letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginTop: "4px" }}>Driver</div>
+          </div>
+
+          {[
+            { label: "Neodymium", top: "6%",  left: "52%" },
+            { label: "5Hz Floor",  top: "50%", left: "88%" },
+            { label: "Beryllium",  top: "86%", left: "54%" },
+          ].map(l => (
+            <div key={l.label} style={{
+              position: "absolute", top: l.top, left: l.left,
+              fontFamily: "var(--font-dm)", fontSize: "8px", letterSpacing: "2px",
+              textTransform: "uppercase", color: "rgba(255,255,255,0.2)", whiteSpace: "nowrap",
+            }}>{l.label}</div>
+          ))}
         </motion.div>
       </div>
 
       <style>{`
+        @keyframes volta-ring-cw  { to { transform: translate(-50%,-50%) rotate(360deg);  } }
+        @keyframes volta-ring-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
         @media (max-width: 639px) {
           #tech {
             flex-direction: column !important;

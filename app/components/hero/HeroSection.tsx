@@ -21,6 +21,7 @@ export default function HeroSection() {
       background: "var(--bg)",
       display: "flex",
       alignItems: "center",
+      justifyContent: "center",
     }}>
 
       {/* Equalizer canvas — full background */}
@@ -28,59 +29,7 @@ export default function HeroSection() {
         <BeamsCanvas />
       </div>
 
-      {/* Ambient red glow behind person */}
-      <div style={{
-        position: "absolute",
-        right: "10%",
-        bottom: "0",
-        width: "560px",
-        height: "560px",
-        background: "radial-gradient(ellipse at center bottom, rgba(180,10,22,0.13) 0%, transparent 65%)",
-        zIndex: 2,
-        pointerEvents: "none",
-      }} />
-
-      {/* Person cutout — right side, bottom anchored — hidden on mobile */}
-      <motion.div
-        className="volta-hero-person"
-        initial={{ opacity: 0, x: 32 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-        style={{
-          position: "absolute",
-          right: 0,
-          bottom: 0,
-          zIndex: 3,
-          pointerEvents: "none",
-          userSelect: "none",
-        }}
-      >
-        <img
-          src="/voltamkt1_nobg.png"
-          alt="Person wearing VØLTA V1 Pro headphones"
-          style={{
-            height: "92vh",
-            width: "auto",
-            display: "block",
-            objectFit: "contain",
-            objectPosition: "bottom center",
-          }}
-        />
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(90deg, var(--bg) 0%, rgba(0,0,0,0) 28%)",
-          pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(0deg, var(--bg) 0%, rgba(0,0,0,0) 18%)",
-          pointerEvents: "none",
-        }} />
-      </motion.div>
-
-      {/* Left — frosted glass card */}
+      {/* Center — frosted glass card */}
       <motion.div
         className="volta-hero-card"
         initial={{ opacity: 0, y: 32 }}
@@ -89,18 +38,17 @@ export default function HeroSection() {
         style={{
           position: "relative",
           zIndex: 4,
-          marginLeft: "8%",
-          backdropFilter: "blur(36px)",
-          WebkitBackdropFilter: "blur(36px)",
-          background: "rgba(255,255,255,0.045)",
-          border: "1px solid rgba(255,255,255,0.1)",
+          backdropFilter: "blur(40px)",
+          WebkitBackdropFilter: "blur(40px)",
+          background: "rgba(255,255,255,0.022)",
+          border: "1px solid rgba(255,255,255,0.07)",
           borderRadius: "28px",
           padding: "20px 36px 22px",
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
-          textAlign: "left",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07)",
+          alignItems: "center",
+          textAlign: "center",
+          boxShadow: "0 24px 64px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)",
           pointerEvents: "none",
           minWidth: "300px",
           maxWidth: "380px",
@@ -229,15 +177,10 @@ export default function HeroSection() {
 
       <style>{`
         @media (max-width: 639px) {
-          .volta-hero-person { display: none !important; }
           .volta-hero-card {
-            margin-left: 0 !important;
-            margin: 0 5% !important;
-            align-items: center !important;
-            text-align: center !important;
             min-width: unset !important;
             max-width: unset !important;
-            width: 90% !important;
+            width: 88% !important;
           }
         }
       `}</style>

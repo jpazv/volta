@@ -129,10 +129,13 @@ export default function BeamsCanvas() {
 
     drawBars(ctx, W, H, heights, sb, se);
 
-    // Sound circle — left area
+    // Sound circle — left area on desktop, top-center on mobile
     ctx.globalCompositeOperation = "lighter";
     const { mid: sm } = smoothRef.current;
-    drawCircle(ctx, W * 0.13, H * 0.42, t, sb, sm, se, fft, audioRef.current);
+    const isMobile = W < 640;
+    const circleX = isMobile ? W * 0.5  : W * 0.13;
+    const circleY = isMobile ? H * 0.18 : H * 0.42;
+    drawCircle(ctx, circleX, circleY, t, sb, sm, se, fft, audioRef.current);
 
     // Vignette
     ctx.globalAlpha = 1;
@@ -169,7 +172,7 @@ export default function BeamsCanvas() {
       <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
 
       {!audioActive && (
-        <div style={{
+        <div className="volta-tap-hint" style={{
           position: "absolute",
           left: "52px",
           bottom: "138px",
@@ -195,7 +198,17 @@ export default function BeamsCanvas() {
         </div>
       )}
 
-      <style>{`@keyframes volpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.2;transform:scale(.6);}}`}</style>
+      <style>{`
+        @keyframes volpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.2;transform:scale(.6);}}
+        @media (max-width: 639px) {
+          .volta-tap-hint {
+            left: 50% !important;
+            transform: translateX(-50%);
+            bottom: 100px !important;
+            align-items: center !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
